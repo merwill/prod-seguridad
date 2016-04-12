@@ -1,0 +1,110 @@
+<div class="note note-warning">
+    <p>
+        Administraci&oacute;n de la Tabla Param&eacute;trica "<?php echo $this->tabla->getNombre(); ?>"
+    </p>
+</div>
+
+<div class="portlet box blue">
+	<div class="portlet-title">
+		
+		<div class="caption">
+			<i class="fa fa-user"></i><?php echo $this->tabla->getNombre(); ?>
+		</div>
+		<div class="actions">
+			<div class="btn-group btn-group-xs">
+				
+				<a href="<?php echo $this->url('administracion/default', array('controller' => 'index', 'action' => 'nuevo','id' => $this->id)); ?>" 
+				data-target="#modal_nuevo" 
+				data-toggle="modal" 
+				class="btn blue"><i class="fa fa-plus"></i> Nuevo</a>
+				
+				<button type="button" id="idBtnAdicionar" class="btn btn-default" 
+						onclick="">
+					<span class="fa fa-plus"></span> Adicionar 
+				</button>
+				
+				<button type="button" class="btn btn-default" onclick="adicionarUsuario()">
+					<span class="fa fa-align-right"></span> Asignar Perfil 
+				</button>
+				
+				<button type="button" id = "idBtnActualizarListaUsuarios"  class="btn btn-default"
+				data-loading-text="Cargando..." >
+					<span class="fa fa-refresh"></span> Actualizar
+				</button>
+				<a class="btn btn-default" href="#" data-toggle="dropdown">
+					Columnas <i class="fa fa-angle-down"></i>
+				</a>
+				<div id="dataTables-usuarios_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+					<?php foreach ($this->cabecera as $value):  static $c=0; ?>
+						<label><input type="checkbox" checked data-column="<?php echo $c;?>"> <?php echo $value; ?></label>
+            		<?php $c++; endforeach; ?>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+<div class="portlet-body">
+	<div class="table-responsive">
+<?php echo $this->partial('administracion/index/partial_list',array('listado'=>$this->listado,'cabecera'=>$this->cabecera,'dato'=>$this->dato,'id' => $this->id, 'page'=>$page)); ?>
+</div>
+</div>
+</div>
+<?php //echo $this->paginationControl($this->listado, 'Sliding', 'paginator-slide', array('route' => 'administracion/paginator','id' => $this->id, 'page'=>$page)); ?>
+
+<div class="modal fade" id="modal_nuevo" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var oTable = $('#dataTables-usuarios').dataTable({
+		"sPaginationType": "bootstrap",
+		sPagination: false,
+		bPaginate: true ,bInfo: true,
+        "aoColumnDefs": [
+                         { "aTargets": [ 0 ] }
+                     ],
+         "aaSorting": [[0, 'desc']],
+   		 "oLanguage": {
+   			 	"sLengthMenu": "_MENU_ registros por página",
+			  	"sSearch": "Buscar: _INPUT_",
+				 "sInfo": "Mostrando _START_ a _END_ registros de _TOTAL_ entradas",
+    			"sInfoFiltered": " - filtrado _MAX_ registros totales",
+ 			  	"sInfoEmpty": "Sin entradas para mostrar",
+  				"sEmptyTable": "Datos no disponibles en esta tabla",
+//				  	"sPaginate": {
+//  	       			"iStart": "Primero",
+//  	       			"last": "Ultimo",
+//  	       			"next": "Siguiente",
+//  	       			"previous": "Anterior"
+//  	       	   	}
+			 },
+			 "aLengthMenu": [
+			                [5, 15, 20, -1],
+   			                [5, 15, 20, "Todos"] // change per page values here
+   			            ],
+		  "iDisplayLength": 30,
+		 
+        });
+    jQuery('#dataTables-usuarios_wrapper .dataTables_filter input').addClass("form-control input-small input-inline"); // modify table search input
+    jQuery('#dataTables-usuarios_wrapper .dataTables_length select').addClass("form-control input-small"); // modify table per page dropdown
+    jQuery('#dataTables-usuarios_wrapper .dataTables_length select').select2(); // initialize select2 dropdown
+
+    $('#dataTables-usuarios_column_toggler input[type="checkbox"]').change(function(){
+        /* Get the DataTables object again - this is not a recreation, just a get of the object */
+        var iCol = parseInt($(this).attr("data-column"));
+        var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
+        oTable.fnSetColumnVis(iCol, (bVis ? false : true));
+    });
+    //console.log(oTable.fnPagingInfo());
+});
+
+</script>
+

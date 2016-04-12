@@ -1,0 +1,143 @@
+
+
+<!--<div style="padding: 50px 0 50px 0;">-->
+
+<!--     <div class="row"> -->
+
+<!--         <div class="col-md-4"> -->
+<!--         </div> -->
+<!--         <div class="col-md-4 col-md-offset-4"> -->
+<div id="mensaje-login">
+        	<p class="text-center text-danger" style="font-weight: bold;">
+             <?php echo $this->messages; ?>
+		    </p>
+</div>
+
+            <div class="login-panel panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ingrese sus credenciales</h3>
+                </div>
+                <div class="panel-body">
+
+                    <?php
+                    $form = $this->form;
+                    $form->setAttribute('action', $this->url('auth-doctrine/default', array('controller' => 'index', 'action' => 'login')));
+                    $form->prepare();
+
+                    echo $this->form()->openTag($form); ?>
+
+                    <!--<form role="form" method="post">-->
+                        <fieldset>
+                            <div class="form-group">
+                                <!--<input class="form-control" placeholder="usuario" name="usuario" type="text" autofocus>-->
+                                <?php echo $this->formRow($form->get('username')); ?>
+                            </div>
+                            <div class="form-group">
+                                <!--<input class="form-control" placeholder="Clave" name="password" type="password" value="">-->
+                                <?php echo $this->formRow($form->get('password')); ?>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <!-- <input name="remember" type="checkbox" value="Remember Me">Recordarme.-->
+                                    <?php echo $this->formRow($form->get('rememberme')); ?>
+                                </label>
+                            </div>
+
+                            <?php if (isset($this->aplicacionesRegistradas) && count($this->aplicacionesRegistradas)>0){ ?>
+                            <div class="form-group">
+                            <div class="form-group-2">
+                                <!--<input class="form-control" placeholder="Clave" name="password" type="password" value="">-->
+                                <?php echo $this->formRow($form->get('aplicaciones')); ?>
+                            </div>
+                            </div>
+
+                            <?php } ?>
+
+
+                            <?php if (isset($this->aplicacionesRegistradas) && count($this->aplicacionesRegistradas)>0){ ?>
+                            <div class="form-actions fluid">
+                                <div class="col-md-offset-2 col-md-10">
+<!--                             	<input class="btn btn-primary btn-lg btn-block" type="submit" value="Iniciar Sesion" name="iniciar_sesion"> -->
+	                            <?php  echo $this->formRow($form->get('submit')); ?>
+                                    <a href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'index', 'action' => 'logout'));?>">
+                                        <button class="btn btn-warning" type="button">Cancelar</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <?php }else{ ?>
+                            <div class="form-actions fluid">
+                                <div class="col-md-offset-3 col-md-9">
+<!--                             	<input class="btn btn-primary btn-lg btn-block" type="submit" value="Iniciar Sesion" name="iniciar_sesion"> -->
+	                            <?php  echo $this->formRow($form->get('submit')); ?>
+	                                <!--<button class="btn btn-warning" type="submit">Iniciar Sesion</button>
+                                    <button class="btn btn-default" type="button">Cancelar</button>-->
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </fieldset>
+                    <?php echo $this->form()->closeTag(); ?>
+                </div>
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+</div>
+<!--<div align="center" style="padding: 0 10px 10px 0;">
+	Consultas al 2203434 Int. 413
+</div>-->
+<div align="right" style="padding: 0 10px 10px 0;">
+<?php // view helper
+    if ($user = $this->identity()) {
+        echo 'Está logueado como: ' . $this->escapeHtml($user->getUsrName());
+?>		
+ <!-- | <a href="<?php //echo $this->url('auth-doctrine/default', array('controller' => 'index', 'action' => 'logout'));?>">Salir</a>-->
+<?php
+    } else {
+       // echo 'No logueado';
+    }
+    
+    //echo md5("12345678");
+?>
+<div class="row">
+<div class="col-md-6 text-left">
+    <a href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'registration', 'action' => 'forgotten-password'));?>">Recordar Contraseña</a>
+    </div>
+    <div class="col-md-6 text-right" >
+    <a href="<?php echo $this->url('auth-doctrine/default', array('controller' => 'registration', 'action' => 'cambiar-password'));?>">Cambiar Contraseña</a>
+</div>
+</div>
+<!-- <p> -->
+	<!--<a href="<?php //echo $this->url('auth-doctrine/default', array('controller' => 'registration', 'action' => 'index'));?>">Registrarse</a> |-->  
+	<!--<a href="<?php //echo $this->url('auth-doctrine/default', array('controller' => 'registration', 'action' => 'forgotten-password'));?>">¿Olvido su contraseña?</a>-->
+<!-- </p> -->
+</div>
+
+<?php if (isset($this->aplicacionesRegistradas) && count($this->aplicacionesRegistradas)>0){ ?>
+
+<script>
+
+   $(".form-group-2").addClass('has-error');
+
+    $("#username").attr('readonly','readonly');
+    $("#password").attr('readonly','readonly');
+   // $("#aplicaciones").addClass('label-warning');
+
+   $( "#aplicaciones").change(function() {
+       if($("#aplicaciones").val() != "" ){
+           $(".form-group-2").removeClass('has-error');
+           $(".form-group-2").addClass('has-success');
+           $("#mensaje-login").hide();
+       }else{
+           //form-control
+           $(".form-group-2").removeClass('has-success');
+           $(".form-group-2").addClass('has-error');
+           $("#mensaje-login").show();
+       }
+   });
+
+
+
+
+</script>
+
+<?php } ?>

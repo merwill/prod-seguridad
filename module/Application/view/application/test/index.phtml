@@ -1,0 +1,90 @@
+<div class="jumbotron text-center">
+    <p>
+        TESTTTTTTTTTTTTTT
+        <br/><pre>
+
+        <div  align="left">
+        <?php var_dump($this->res);
+        ?>
+</div>
+    </p>
+    <br/>
+    <button id="btnOpenDialog" class="btn btn-success btn-lg">Show Demo</button>
+</div>
+
+
+
+
+
+<?php echo YsUIDialog::initWidget('dialogId','style="display:none" title="Basic dialog"') ?>
+
+<br>
+<p>You have a new message!</p>
+
+<div id="div-dialog"></div>
+
+
+<?php echo YsUIDialog::endWidget() ?>
+
+<?php
+echo
+YsJQuery::newInstance()
+    ->onClick()
+    ->in('#btnOpenDialog')
+    ->execute('test()'
+//        YsUIDialog::build('#dialogId')
+//            ->_modal(true)
+//            ->_position(YsUIPosition::$CENTER_CENTER_POSITION)
+//            ->_show('slide')
+//            ->_buttons(array(
+//                    'Ok' => new YsJsFunction('alert("Hello world")'),
+//                    'Close' =>  new YsJsFunction(YsUIDialog::close('this')))
+//            )
+    )
+?>
+
+<script type="text/javascript">
+
+    function gettt(){
+        alert('ssssssssss');
+    }
+
+
+    function getCustomers() {
+        // This method is automatically generated. Don't modify it.
+        //jQuery.mobile.showPageLoadingMsg('Loading');
+        $.ajax({
+            url : 'http://localhost.seguridad/album-rest/1',
+            cache : false,
+            type : 'GET',
+            success : function(data, status, xhr) {
+                console.log(data);
+            }
+        });
+    }
+
+    function test(){
+
+        $('#div-dialog').load('/application/index/test',
+            function(response) {
+                $('#dialogId').wijdialog(
+                    {"captionButtons": {"maximize": {"visible": false},
+                        "minimize": {"visible": false},
+                        "toggle": {"visible": false},
+                        "refresh": {"visible": false},
+                        "pin": {"visible": false},
+                        "close": {"visible": true}
+                    },
+                        "modal": true,
+                        "width": 550,
+                        "height": 'auto',
+                        "position": [ "center", "center"],
+                        "title":'Test',
+                        "buttons": {"Cerrar": function(){jQuery(this).wijdialog('close')}}
+                    })
+            });
+
+
+    }
+
+</script>

@@ -1,0 +1,49 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Administraci&oacute;n de Tablas Param&eacute;tricas
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+            <a href="#portlet-config" data-toggle="modal" class="config"></a>
+            <a href="javascript:;" class="reload"></a>
+            <a href="javascript:;" class="remove"></a>
+        </div>
+    </div>
+    <div class="portlet-body flip-scroll">
+        <div class="row">
+            <div class="col-md-3">
+                <div id="tree_1" class="tree-demo">
+                    <ul>
+                        <li data-jstree='{ "selected" : true, "opened"  : true }'>
+                            TABLAS PARAMETRICAS
+                            <ul>
+                                <?php foreach ($this->tablas as $tabla): ?>
+                                <li data-jstree='{ "icon" : "fa fa-tasks icon-success " }'>
+                                    <a href="#" data-url="<?php echo $this->url('administracion/default', array('controller' => 'index', 'action' => 'enviar')); ?>" data-id="<?php echo $tabla->getId(); ?>">
+                                        <?php echo $tabla->getNombre(); ?>
+                                    </a>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/assets/plugins/jstree/dist/jstree.min.js"></script>
+<script src="/assets/scripts/custom/ui-tree.js"></script>
+<script>
+	jQuery(document).ready(function() {       
+		UITree.init();
+});
+</script>

@@ -1,0 +1,223 @@
+
+
+<div class="portlet box blue">
+	<div class="portlet-title">
+		
+		<div class="caption">
+			<i class="fa fa-user"></i>Lista de Usuarios
+		</div>
+		<div class="actions">
+			<div class="btn-group btn-group-xs">
+				
+				<button type="button" id="idBtnAdicionar" class="btn btn-default" 
+						onclick="">
+					<span class="fa fa-plus"></span> Adicionar 
+				</button>
+				
+				<button type="button" class="btn btn-default" onclick="adicionarUsuario()">
+					<span class="fa fa-align-right"></span> Asignar Perfil 
+				</button>
+				
+				<button type="button" id = "idBtnActualizarListaUsuarios"  class="btn btn-default"
+				data-loading-text="Cargando..." >
+					<span class="fa fa-refresh"></span> Actualizar
+				</button>
+				<a class="btn btn-default" href="#" data-toggle="dropdown">
+					Columnas <i class="fa fa-angle-down"></i>
+				</a>
+				<div id="dataTables-usuarios_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+					<label><input type="checkbox" checked data-column="0">ID</label>
+					<label><input type="checkbox" checked data-column="1">USUARIO</label>
+					<label><input type="checkbox" checked data-column="2">PERFIL</label>
+					<label><input type="checkbox" checked data-column="3">ESTADO</label>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="portlet-body">
+
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered table-hover table-full-width" id="dataTables-usuarios">
+				<thead>
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">USUARIO</th>
+						<th class="text-center">PERFIL</th>
+						<th class="text-center">ESTADO</th>
+						<th class="text-center">ACCIONES</th>
+					</tr>
+				</thead>
+				<tbody>
+			<?php
+			foreach ( $this->listaUsuariosPersona as $usuarioPersona ) {
+				
+				static $contador = 0;
+				$contador ++;
+				
+				$usuario = $usuarioPersona ['usuario'];
+				$persona = $usuarioPersona ['persona'];
+				
+				// $listaUsuarios = "<ol>";
+				// foreach ($usuarios as $usuario){
+				
+				// $usrIdPersona = 0;
+				// if($usuario['usrIdPersona']){
+				// $usrIdPersona = $usuario['usrIdPersona'];
+				// }
+				
+				// $sql = "SELECT * FROM v_planilla WHERE id_persona = $usrIdPersona";
+				// $util = new \Application\Entity\Repositories\UtilsRepository($this->entityManagerSirh);
+				// $persona = $util->execNativeSql($sql);
+				
+				// $nombrePersona = "";
+				// if($persona){
+				// $persona = $persona[0];
+				// $nombrePersona = $persona['nombres'] . " ". $persona['paterno'] . " ".$persona['materno'];
+				// }
+				
+				// $listaUsuarios .= "<li>".$nombrePersona ." [".$usuario['usrName']."]</li>";
+				// }
+				// $listaUsuarios .= "</ol>";
+				
+				$nombreCompleto = "";
+				if (count ( $persona ) > 0) {
+					$persona = $persona [0];
+					$nombreCompleto = $persona ['nombres'] . " " . $persona ['paterno'] . " " . $persona ['materno'] . "<br/>[" . $usuario ['usrName'] . "]";
+				} else {
+					$nombreCompleto = " [" . $usuario ['usrName'] . "]";
+				}
+				
+				$acciones = "<a href='#' onclick='editar(" . $usuario ['usrId'] . ")' title='Editar'>Editar</a>";
+				?>
+			<tr class="">
+						<td class="text-center"><?php echo $contador?></td>
+						<td class="text-left"><?php echo $nombreCompleto ?></td>
+						<td class="text-left"><?php echo $nombreCompleto ?></td>
+						<td class="text-center"><?php echo $usuario['usrActive'] ==1? "VIGENTE": "NO VIGENTE" ?></td>
+						<td class="text-center"><?php //echo $acciones ?>
+						
+						<div class="crud-list-td">
+						    <a href="#" class="btn btn-xs <?php echo $usuario['usrActive']=='0'?'red':'green'; ?> crud-change-state" 
+						    	title="CAMBIAR ESTADO" 
+						    	data-url="<?php echo $this->url('administracion/default', array('controller' => 'index', 'action' => 'cambiarestado')); ?>" 
+						    	data-url-callback="<?php echo $this->url('administracion/default', array('controller' => 'index', 'action' => 'parametrica')); ?>" 
+						    	data-id="<?php echo $usuario ['usrId']; ?>">
+						        <?php echo $usuario['usrActive']=='0'?'No Vigente':'Vigente'; ?>
+						    </a>
+						    <a href="<?php echo $this->url('administracion/default', array('controller' => 'index', 'action' => 'editar','id' => $usuario ['usrId'])); ?>" data-target="#modal_nuevo" data-toggle="modal" class="btn btn-xs blue" title="EDITAR">
+						        <i class="fa fa-edit"></i>
+						    </a>
+						    <a href="#" class="btn btn-xs red crud-delete" title="ELIMINAR" 
+						    	data-url="<?php echo $this->url('administracion/default', array('controller' => 'index', 'action' => 'eliminar')); ?>" 
+						    	data-url-callback="<?php echo $this->url('administracion/default', array('controller' => 'index', 'action' => 'parametrica')); ?>" 
+						    	data-id="<?php echo $usuario ['usrId']; ?>">
+						        <i class="fa fa-times-circle"></i>
+						    </a>
+						</div>
+						
+						
+						</td>
+					</tr>
+						  <?php }?>
+						  </tbody>
+			</table>
+		</div>
+
+
+	</div>
+
+</div>
+
+<script>
+// jQuery(document).ready(function() {       
+//    TableAdvanced.init();
+// });
+</script>
+
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+    $(document).ready(function() {
+    	var oTable = $('#dataTables-usuarios').dataTable({
+        	"sPaginationType": "bootstrap",
+            "aoColumnDefs": [
+                             { "aTargets": [ 0 ] }
+                         ],
+             "aaSorting": [[0, 'asc']],
+       		 "oLanguage": {
+       			 	"sLengthMenu": "_MENU_ registros por página",
+    			  	"sSearch": "Buscar: _INPUT_",
+   				  	"sInfo": "Mostrando _START_ a _END_ registros de _TOTAL_ entradas",
+        			"sInfoFiltered": " - filtrado _MAX_ registros totales",
+     			  	"sInfoEmpty": "Sin entradas para mostrar",
+      				"sEmptyTable": "Datos no disponibles en esta tabla",
+// 				  	"sPaginate": {
+//      	       			"iStart": "Primero",
+//      	       			"last": "Ultimo",
+//      	       			"next": "Siguiente",
+//      	       			"previous": "Anterior"
+//      	       	   	}
+    			 },
+   			 "aLengthMenu": [
+    			                [5, 15, 20, -1],
+       			                [5, 15, 20, "Todos"] // change per page values here
+       			            ],
+			  "iDisplayLength": 5,
+    		 
+            });
+        jQuery('#dataTables-usuarios_wrapper .dataTables_filter input').addClass("form-control input-small input-inline"); // modify table search input
+        jQuery('#dataTables-usuarios_wrapper .dataTables_length select').addClass("form-control input-small"); // modify table per page dropdown
+        jQuery('#dataTables-usuarios_wrapper .dataTables_length select').select2(); // initialize select2 dropdown
+
+        $('#dataTables-usuarios_column_toggler input[type="checkbox"]').change(function(){
+            /* Get the DataTables object again - this is not a recreation, just a get of the object */
+            var iCol = parseInt($(this).attr("data-column"));
+            var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
+            oTable.fnSetColumnVis(iCol, (bVis ? false : true));
+        });
+    });
+
+
+    $('#idBtnAdicionar').click(function () {
+        var btn = $(this)
+        btn.button('loading')
+        
+        
+		var idModal = "miModal";
+		var title = "Formulario Usuarios";
+		var idContent = "divContentModal";
+	
+		openModalBootstrap(idModal,title,idContent)
+		//$('#'+idContent).load('/formulacion/test/formulario',function(){btn.button('reset')});
+		$('#'+idContent).load('/index/registration',function(){btn.button('reset')});
+
+      });
+      
+    $('#idBtnActualizarListaUsuarios').click(function () {
+        var btn = $(this);
+        btn.button('loading');
+
+		var idContent = "content";
+	
+		$('#'+idContent).load('/usuarios',function(){btn.button('reset')});
+      });
+
+    
+function adicionarUsuario(){
+
+	var idModal = "miModal";
+	var title = "Formulario Usuarios";
+	var idContent = "divContentModal";
+	
+	//openModalBootstrap(idModal,title,idContent)
+	//$('#'+idContent).load('/formulacion/test/formulario');
+	$('#content').load('/usuarios/index');
+	
+	
+}
+    
+    
+</script>

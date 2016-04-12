@@ -1,0 +1,21 @@
+<div class="row text-right">
+    <div class="col-md-12 col-sm-12">
+	<?php if ($this->pageCount > 1): ?>
+        <ul class="pagination">
+            <li <?php echo!isset($this->previous) ? 'class="li-class disabled"' : 'class="li-class"'; ?>>
+                <a class="page-class" href="#" data-page="<?php echo $this->first; ?>" data-id="<?php echo $this->id; ?>" data-url="<?php echo $this->url($route); ?>" >&lsaquo;</a></li>
+
+            <?php foreach ($this->pagesInRange as $page): ?>
+            <li <?php echo $page == $this->current ? 'class="li-class active"' : 'class="li-class"'; ?>>
+                <a class="page-class" href="#" data-page="<?php echo $page; ?>" data-id="<?php echo $this->id; ?>" data-url="<?php echo $this->url($route); ?>">
+                    <?php echo $page; ?>
+                </a>
+            </li>
+            <?php endforeach; ?>
+
+            <li <?php echo!isset($this->next) ? 'class="li-class disabled"' : 'class="li-class"'; ?>>
+                <a class="page-class" href="#" data-page="<?php echo $this->next; ?>" data-id="<?php echo $this->id; ?>" data-url="<?php echo $this->url($route); ?>" >&rsaquo;</a></li>
+        </ul>
+	<?php endif; ?>
+	</div>
+</div>

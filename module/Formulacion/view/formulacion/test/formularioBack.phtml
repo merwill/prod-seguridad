@@ -1,0 +1,169 @@
+
+
+<?php
+$form = $this->form;
+$form->prepare();
+/*
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', $this->url('application/formulario/recibe'));
+
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+*/
+/*
+$form->setAttributes(array(
+    'action' => $this->url.'/application/formulario/recibe',
+    'method' => 'post'
+));*/
+// Get the form label plugin
+//$formLabel = $this->plugin('formLabel');
+
+// Render the opening tag
+
+echo "error--> ".$this->error;
+echo $this->form()->openTag($form);
+?>
+<!--<div class="form-group">
+    <?php /*$nombre = $form->get('nombre'); */?>
+    <?php /*echo $this->formLabel($nombre); */?>
+    <?php /*//echo $this->formFile($fileElement); */?>
+    <?php /* echo $this->formInput($nombre);
+    if ($this->error){
+    echo $this->formElementErrors($nombre);
+    }
+    */?>
+</div>
+
+<div class="form-group">
+    <?php
+/*    $apellido = $form->get('apellido');
+    echo $this->formLabel($apellido);
+    echo $this->formInput($apellido);
+    echo $this->formElementErrors($apellido);
+    */?>
+</div>
+<div class="form-group">
+<?php
+/*$submit = $form->get('Registrar');
+//echo $this->formLabel($submit);
+echo $this->formSubmit($submit);
+*/?>
+</div>
+-->
+
+<?php
+
+
+
+foreach ($form as $element) {
+
+   // var_dump($element);
+
+    if(!$element instanceof Zend\Form\Element\Submit){
+        echo "<div class='form-group' >";
+        echo $this->formLabel($element);
+        echo "<div class='col-sm-9'>";
+        echo $this->formElement($element);       // <-- Magic!
+        echo "</div>";
+        //echo "<div style='color: red'>";
+        echo $this->formElementErrors($element);
+        //echo "</div>";
+        echo "</div>";
+    }else{
+        echo "<div class='form-group'>";
+        echo "<div class='col-sm-offset-1 col-sm-9'>";
+        echo $this->formElement($element);       // <-- Magic!
+        echo "</div>";
+        //echo "<div style='color: red'>";
+        echo $this->formElementErrors($element);
+        //echo "</div>";
+        echo "</div>";
+
+    }
+}
+?>
+<?php echo $this->form()->closeTag() ?>
+
+<div id="respuesta"><?php //var_dump($this->respuesta) ?></div>
+
+
+<?php
+//*************** Eventos Jquery de validacion y envio de formulario ************************
+//Plugins necesarios
+YsJQuery::usePlugin(YsJQueryConstant::PLUGIN_JQVALIDATE);
+YsJQuery::usePlugin(YsJQueryConstant::PLUGIN_JQFORM);
+YsJQuery::usePlugin(YsJQueryConstant::PLUGIN_PNOTYFY);
+?>
+
+<script type="text/javascript">
+
+    var respuesta = '<?php echo ($this->respuesta["respuesta"]) ?>';
+    var mensaje = '<?php echo ($this->respuesta["mensaje"]) ?>';
+    //alert(resp);
+
+    if (respuesta){
+        jQuery.pnotify({'pnotify_text': mensaje,'pnotify_type': 'notice'});
+        jQuery('#dialogId').wijdialog('close');
+        //jQuery('#content').load('/vuc/ventanilla/grid-tgl');
+
+    }else{
+
+        if(mensaje != ''){
+        //console.log(response.errores);
+            alert(mensaje);
+        }
+        //   $('#div-dialog').load('formulacion/test/formulario');
+        //dialogOpen(response.mensaje,'ERROR');
+    }
+</script>
+
+
+<?php
+echo
+YsJQuery::newInstance()
+    ->execute(
+        YsUIButton::build('.submit')->_icons(array('primary' => YsUIConstant::ICON_NONE)),
+       // YsJQValidate::validate('#formTest')
+           // ->_ignore('')
+           // ->_rules(array('dirigido_id' => 'required'))
+           // ->_messages(array('dirigido_id' => 'Requerido'))
+        //,
+        // Validacion de formulario
+        YsJQForm::ajaxForm()  // Submit del formulario
+            ->in('#formTest')
+            ->_target('#div-dialog')
+            //->_dataType("json")
+            //->_beforeSubmit(new YsJsFunction('if(!confirm("Seguro de guargar?")){return false;}'))
+            ->_success(
+                new YsJsFunction("successForm(response);","response")
+            )
+    );
+?>
+
+<script type="text/javascript">
+
+
+    function successForm(response){
+
+
+
+       /* console.log(response);
+
+var resp 0
+
+
+        if (response.respuesta){
+            jQuery.pnotify({'pnotify_text': response.mensaje,'pnotify_type': 'notice'});
+            jQuery('#dialogId').remove();
+            //jQuery('#content').load('/vuc/ventanilla/grid-tgl');
+
+        }else{
+            console.log(response.errores);
+            alert(response.mensaje);
+         //   $('#div-dialog').load('formulacion/test/formulario');
+            //dialogOpen(response.mensaje,'ERROR');
+        }*/
+
+    }
+
+</script>

@@ -1,0 +1,25 @@
+<!-- <table class="table table-bordered table-striped table-condensed flip-content"> -->
+<table class="table table-striped table-bordered table-hover table-full-width" id="dataTables-usuarios">
+    <thead class="flip-content">
+        <tr>
+            <?php foreach ($this->cabecera as $value): ?>
+            <th class="text-center"><?php echo $value; ?></th>
+            <?php endforeach; ?>
+            <th class="text-center">ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->listado as $value): ?>
+        <tr>
+            <?php foreach ($this->dato as $val): ?>
+            <td>
+                <?php eval("echo $val"); ?>
+            </td>
+            <?php endforeach; ?>
+            <td class="text-center">
+                <?php echo $this->partial('administracion/index/partial_td_list',array('value'=>$value,'clase_id' => $this->id, 'page'=>$this->page)); ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

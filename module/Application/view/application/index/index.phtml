@@ -1,0 +1,59 @@
+<?php //echo YsConfigAssets::includeAssets("*") ?>
+Bienvenido...
+<div class="text-center">
+    <p>
+        Bienvenido...
+
+        <div align="left">
+            <?php //var_dump($this->res);
+            \Zend\Debug\Debug::dump($this->datos_sesion);
+
+            //var_dump($this->identity()->getUsrName());
+           // var_dump($this->identity());
+            ?>
+
+        </div>
+    </p>
+    <br/>
+    <button class="btn btn-primary btn-lg" onclick="openModalBootstrapFormulario()"> Open Modal Ajax</button>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">Launch Demo Modal</button>
+    
+    <a data-toggle="modal" href="/formulacion/test/formulario" data-target="#myModal2">Click me</a>
+    
+</div>
+
+
+                            
+                                                        <!-- Modal -->
+                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-backdrop">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                        lorem    
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div></div>
+                            <!-- /.modal -->
+<script type="text/javascript">
+
+function openModalBootstrapFormulario(){
+
+	openModalBootstrap("myModal","Formulario","divContentModal")
+	
+	$('#divContentModal').load('/formulacion/test/formulario');
+}
+
+            
+</script>

@@ -1,0 +1,68 @@
+<!--Render form partial-form-->
+<?php echo $this->partial('partial/form-partial', array('form' => $this->form, 'error_en_formulario'=>$this->error_en_formulario)); ?>
+<!--END Render form partial-form-->
+
+<?php
+//*************** Eventos Jquery de validacion y envio de formulario ************************
+//Plugins necesarios
+YsJQuery::usePlugin(YsJQueryConstant::PLUGIN_JQVALIDATE);
+YsJQuery::usePlugin(YsJQueryConstant::PLUGIN_JQFORM);
+YsJQuery::usePlugin(YsJQueryConstant::PLUGIN_PNOTYFY);
+?>
+
+<script type="text/javascript">
+
+    var respuesta = '<?php echo ($this->mensaje_respuesta["respuesta"]) ?>';
+    var mensaje = '<?php echo ($this->mensaje_respuesta["mensaje"]) ?>';
+
+    if (respuesta){
+        jQuery.pnotify({'pnotify_text': mensaje,'pnotify_type': 'notice'});
+        jQuery('#dialogId').wijdialog('close');
+        //jQuery('#content').load('/vuc/ventanilla/grid-tgl');
+
+    }else{
+
+        if(mensaje != ''){
+            $("#respuesta-formulario").html(mensaje);
+            //dialogOpen(mensaje,'ERROR');
+            alert(mensaje);
+        }
+    }
+</script>
+
+
+<?php
+//echo
+// YsJQuery::newInstance()
+//     ->execute(
+//         YsUIButton::build('.submit')->_icons(array('primary' => YsUIConstant::ICON_NONE)),
+//         //YsJQValidate::validate('#formTest')
+//             //->_errorLabelContainer('.form-group .has-error')
+//             //->addRules('#formTest .form-group',array("class"=>"has-error"))
+//             //->_errorClass(array(".form-group"=>"has-error"))
+//             //->cl_ignore('')
+//             //->_errorClass("form-group has-error text-danger")
+
+//            // ->_rules(array('dirigido_id' => 'required'))
+//            // ->_messages(array('dirigido_id' => 'Requerido'))
+//         //,
+//         // Validacion de formulario
+//         YsJQForm::ajaxForm()  // Submit del formulario
+//             ->in('#formInsumo')
+//             ->_target('#div-dialog')
+//             //->_dataType("json")
+//             ->_beforeSubmit(new YsJsFunction('if(!confirm("Seguro de guardar?")){return false;}'))
+//             ->_success(
+//                 new YsJsFunction("successForm(response);","response")
+//             )
+//     );
+?>
+
+<script type="text/javascript">
+    function successForm(response){
+        //console.log(response);
+    }
+
+</script>
+
+

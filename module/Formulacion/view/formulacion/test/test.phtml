@@ -1,0 +1,85 @@
+<strong>Module:</strong>        Test &raquo;
+<strong>Controller:</strong>    test &raquo;
+<strong>Action:</strong>        test
+ <br/><br/>
+<?php //var_dump($this->param);?>
+<br/><br/>
+<?php //var_dump($this->res);?>
+
+
+<?php
+$form = $this->form;
+$form->prepare();
+/*
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', $this->url('application/formulario/recibe'));
+
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+*/
+/*
+$form->setAttributes(array(
+    'action' => $this->url.'/application/formulario/recibe',
+    'method' => 'post'
+));*/
+// Get the form label plugin
+//$formLabel = $this->plugin('formLabel');
+
+// Render the opening tag
+
+echo "error--> ".$this->error;
+echo $this->form()->openTag($form);
+?>
+<!--<div class="form-group">
+    <?php /*$nombre = $form->get('nombre'); */?>
+    <?php /*echo $this->formLabel($nombre); */?>
+    <?php /*//echo $this->formFile($fileElement); */?>
+    <?php /* echo $this->formInput($nombre);
+    if ($this->error){
+    echo $this->formElementErrors($nombre);
+    }
+    */?>
+</div>
+
+<div class="form-group">
+    <?php
+/*    $apellido = $form->get('apellido');
+    echo $this->formLabel($apellido);
+    echo $this->formInput($apellido);
+    echo $this->formElementErrors($apellido);
+    */?>
+</div>
+<div class="form-group">
+<?php
+/*$submit = $form->get('Registrar');
+//echo $this->formLabel($submit);
+echo $this->formSubmit($submit);
+*/?>
+</div>
+-->
+<?php
+
+foreach ($form as $element) {
+
+   // var_dump($element);
+
+    if($element instanceof Zend\Form\Element\Submit){
+        echo "<div class='form-group'>";
+        echo $this->formElement($element);       // <-- Magic!
+        echo $this->formElementErrors($element);
+        echo "</div>";
+    }else{
+        echo "<div class='form-group'>";
+        echo $this->formLabel($element);
+        echo $this->formElement($element);       // <-- Magic!
+        echo $this->formElementErrors($element);
+        echo "</div>";
+    }
+
+
+
+}
+
+?>
+
+<?php echo $this->form()->closeTag() ?>

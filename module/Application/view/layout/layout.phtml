@@ -1,0 +1,179 @@
+<?php echo $this->doctype(); ?>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<html lang="es" class="no-js">
+<head>
+
+    <meta charset="utf-8">
+    
+   <?php echo $this->headTitle('Ministerio de Economías y Finanzas Públicas')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+   <?php echo $this->headMeta()
+		          ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+		          ->appendName('description', 'Sistema de Seguridad de Aplicaciones')
+		          ->appendName('author', 'Unidad de Tecnologías de Informacion - MEFP')
+        		  ->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+    ?>
+
+
+    
+         <!-- Estilos -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => '/img/favicon-mefp.ico'))
+                        
+                        //->prependStylesheet('/css/style.css')
+                        //->prependStylesheet('/sb-admin-2/font-awesome-4.1.0/css/font-awesome.min.css')
+                        //->prependStylesheet('/sb-admin-2/css/sb-admin-2.css')
+                        //->prependStylesheet('/sb-admin-2/css/plugins/dataTables.bootstrap.css')
+                        //->prependStylesheet('/sb-admin-2/css/plugins/metisMenu/metisMenu.min.css')
+                        //->prependStylesheet('/sb-admin-2/css/bootstrap.css');
+        ?>
+    
+		<!-- BEGIN GLOBAL MANDATORY STYLES -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+		<link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+		<!-- END GLOBAL MANDATORY STYLES -->
+		<link rel="stylesheet" type="text/css" href="/assets/plugins/select2/select2.css"/>
+		<link rel="stylesheet" type="text/css" href="/assets/plugins/select2/select2-metronic.css"/>
+		<link rel="stylesheet" href="/assets/plugins/data-tables/DT_bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="/assets/plugins/jstree/dist/themes/default/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/assets/plugins/jquery-notific8/jquery.notific8.min.css"/>
+		<!-- BEGIN THEME STYLES -->
+		<link href="/assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/css/plugins.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+		<link href="/assets/css/custom.css" rel="stylesheet" type="text/css"/>
+
+		<script src="/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+		<!-- END THEME STYLES -->
+        <link rel="shortcut icon" href="favicon.ico"/>
+        
+		
+
+      
+</head>
+
+<body class="page-header-fixed">
+<!-- BEGIN HEADER -->
+<?php echo $this->partial('layout/partial-navbar-header', array('search' => true)); ?>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<?php echo $this->partial('layout/partial-navbar-sidebar', array('search' => true)); ?>
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+							<h4 class="modal-title">Modal title</h4>
+						</div>
+						<div class="modal-body">
+							 Widget settings form goes here
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<?php //echo $this->partial('layout/partial-breadcumb', array('' => "")); ?>
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+					 <div id="content" class="">
+                	    <?php echo $this->content; ?>
+	    	       	</div>
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<?php echo $this->partial('layout/partial-footer', array('' => "")); ?>
+<!-- END FOOTER -->
+
+
+		<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+    <script src="/assets/plugins/respond.min.js"></script>
+    <script src="/assets/plugins/excanvas.min.js"></script> 
+    <![endif]-->
+<script src="/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>    
+<script src="/assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<!-- <script src="/assets/scripts/custom/form-validation.js"></script> -->
+<script src="/assets/plugins/jstree/dist/jstree.min.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script src="/assets/scripts/custom/ui-tree.js"></script>
+<script src="/assets/scripts/custom/ui-notific8.js"></script>
+<script src="/assets/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="/assets/plugins/jquery-notific8/jquery.notific8.min.js"></script>
+
+<script type="text/javascript" src="/assets/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/data-tables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/data-tables/DT_bootstrap.js"></script>
+
+<!-- <script src="assets/scripts/custom/ui-blockui.js"></script> -->
+<script src="/assets/scripts/core/app.js"></script>
+     	<script src="/js/application.js"></script>  
+<!-- <script src="/assets/scripts/custom/table-advanced.js"></script> -->
+<script>
+      jQuery(document).ready(function() {    
+    	 // UINotific8.init();
+         UITree.init();
+         App.init();
+    	 // FormValidation.init();
+//          TableAdvanced.init();
+      });
+   </script>
+   
+<script type="text/javascript">
+
+// App.blockUI();
+// window.setTimeout(function () {
+//     App.unblockUI();
+// }, 2000);
+   
+	$( document ).ajaxStart(function(){
+		 //App.blockUI();
+		 App.startPageLoading('Un momento por favor...');
+	 }).ajaxStop(function(){
+		 //App.unblockUI();
+		 App.stopPageLoading();
+	 });
+</script>	   
+<!-- END JAVASCRIPTS -->
+</body>
+
+</html>
+
