@@ -2,7 +2,6 @@
 namespace Application\Controller;
 
 use Doctrine\ORM\EntityManager;
-use MisLibrerias\DbFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class BaseController extends AbstractActionController
